@@ -1,4 +1,4 @@
-## [DAY 1]  (5/24/2020)
+## [DAY 1] (5/24/2020)
 
 1. installed virtual box using ubuntu universal repository
 
@@ -30,7 +30,7 @@ _
     
 ##### ELAPSED: 9 hours
 
-## [DAY 2] // 5/25/2020
+## [DAY 2] (5/25/2020)
 
 1. Researched on LIVE-CD distros
 
@@ -100,11 +100,11 @@ _
 
 28. Researched how to change resolution manually, found out that it can be changed in GRUB settings
 
-29. edited /etc/default/grub, uncommented line GRUB_GFXMODE with needed resolution GRUB_GFXMODE=1920x1080 [FAILED]
+29. edited `/etc/default/grub` , uncommented line `GRUB_GFXMODE`with needed resolution `GRUB_GFXMODE=1920x1080` [FAILED]
 
-30. found out GRUB documentation using info -f grub -n "Simple Configuration"
+30. found out GRUB documentation using `info -f grub -n "Simple Configuration"`
 
-31. Found out I need GRUB_GFXPAYLOAD_LINUX to be keep, to keep GRUB_GFXMODE settings in Terminal resolution, Failed
+31. Found out I need `GRUB_GFXPAYLOAD_LINUX` to be _keep_, to keep `GRUB_GFXMODE` settings in Terminal resolution, Failed
 
 32. Downloaded MX Linux
     
@@ -112,7 +112,7 @@ _
     
 ##### ELAPSED TIME: 8 hours
 
-## [DAY 3] // 5/26/2020
+## [DAY 3] (5/26/2020)
 
 1. Tried Setting GRUB resolution to 1024x768 and it worked??
 
@@ -120,27 +120,38 @@ _
 
 3. needed to check my grub supported settings from grub commands, to enter grub commands, at boot menu press c, enter grub command mode
 
-4. set pager=1 and try vbeinfo, now this is the settings supported by the grub
+4. `set pager=1` and `vbeinfo`, now this is the settings supported by the grub
 
-5. normal to continue execution
+5. `normal` to continue execution and boot into linux
 
-6. searched how to add 1920x1080 to grub settings in VM 
+6. searched how to add `1920x1080` to grub settings in VM 
 
-7. found a cli-method to add to vm [ vboxmanage setextradata "LFS" "CustomVideoMode1" "1920x1080x32"] which is vboxmanage setextradata <VM_Name> <kEY> <VALUE>
+7. found a cli-method to add to vm `vboxmanage setextradata "LFS" "CustomVideoMode1" "1920x1080x32"` which is vboxmanage setextradata <VM_Name> <kEY> <VALUE>
 
 8. messed up vm instansiation by making the value 1920x1080x12, found out that I can clear the given key again by using same command but no value
 
-9. changed to 1920x1080x32, note: third number is bit color depth 12 means 4 bits for each color channel R,G,B and no alpha channel, 16 bit means 4 bits for each R,G,B,A channel and 32 bit means 8 bit for R,G,B,A channel each
-
+9. changed to 1920x1080x32, 
+   ```
+   note: third number is bit color depth 12 means 4 bits for each color channel R,G,B and no alpha channel
+   16 bit means 4 bits for each R,G,B,A channel
+   32 bit means 8 bit for R,G,B,A channel each
+ ```
 10. RESOLUTION WORKED IN GRUB
 
 11. Need to keep resolution at GRUB so final settings are
+    ```
     GRUB_GFXMODE=1920x1080x32
-    GRUB_GFXPAYLOAD_LINUX=1920x1080x32 or can be GRUB_GFXPAYLOAD_LINUX=keep which will use same resolutio as GRUB_GFXMODE 
+    GRUB_GFXPAYLOAD_LINUX=1920x1080x32 
+    ```
+    or can be 
+    ```
+    GRUB_GFXPAYLOAD_LINUX=keep which will use same resolutio as GRUB_GFXMODE 
+    ```
 
 12. resolution fixed but font size still too large
 
-13. changing font size can be done by editing /etc/default/console-setup and changing FONTSIZE= to 12x24
+13. changing font size can be done by editing `/etc/default/console-setup` and changing FONTSIZE= to 12x24
+    ```
     final settings
     ACTIVE_CONSOLES="/dev/tty[1-6]"
     CHARMAP="UTF-8"
@@ -148,7 +159,7 @@ _
     FONTFACE="terminus"
     FONTSIZE="12x24"
     VIDEOMODE=
-
+    ```
 14. Starting LFS Book
 
 15. Need to know what symbolic links are
@@ -170,33 +181,36 @@ _
 
 20. swap must be initialized as swap > mkswap /dev/sdbx
 
-21. export $LFS variable, adding it to .bashrc > export LFS=/mnt/lfs
+21. export $LFS variable, adding it to .bashrc > `export LFS=/mnt/lfs`
 
-22. reload bashrc without reboot > source ~/.bashrc
+22. reload bashrc without reboot > `source ~/.bashrc`
 
-23. mkdir -pv $LFS
+23. create needed directories for mounting 
 
-24. mkdir -pv $LFS/boot
+     ```
+     mkdir -pv $LFS
 
-25. mount /dev/sdbx $LFS
+     mkdir -pv $LFS/boot
 
-26. mount /dev/sdbX $LFS/boot
+     mount /dev/sdbx $LFS
 
-27. changed in fstab file /etc/fstab to mount the new partitions on boot each time (man fstab)
+     mount /dev/sdbX $LFS/boot
+    ```
 
-28. e.g. /dev/sdb1 /mnt/lfs ext4 defaults 1 1
-    .separated by tabs or spaces > device_location mount_point drive_type defaults dump(1) nodump(0) priority(root -> 1, others -> 2)
+24. changed in fstab file /etc/fstab to mount the new partitions on boot each time (man fstab)
+
+     ```
+    /dev/sdb1 /mnt/lfs ext4 defaults 1 1
+    ```
+    ```
+    separated by tabs or spaces 
+    > device_location mount_point drive_type defaults dump(1) nodump(0) priority(root -> 1, others -> 2)
+    ```
 
 29. created sources directory in $LFS to hold all sources and patches that will be used
 
-30. changed mod of sources directory to be rwx and sticky, sticky means that it can be deleted only by owner
-    and added write permissions
-    
-    
-    
-    
-    
-    
+30. changed mod of sources directory to be rwx and sticky, sticky means that it can be deleted only by owner and added write permissions
+
     ```
     chmod -v a+wt $LFS/sources
     a -> all users [default]
@@ -205,16 +219,15 @@ _
     w -> write , r -> read, x -> execute, t-> sticky bit
     ```
 
-31. downloaded wget, apt install wget
+31. downloaded wget, `apt install wget`
 
 32. use wget to download all urls from input-file and continue on fail and save in a directory not the CWD
-    . wget --input-file=wget-list --continue --directory-prefix=$LFS/sources
+    ` wget --input-file=wget-list --continue --directory-prefix=$LFS/sources`
 
 33. create wget-list file
-    . vim wget-list ( no copy paste between host and guest cuz console )
+    ` vim wget-list ( no copy paste between host and guest cuz console )`
 
-34. creating a shared folder
-    .    added the download links of tools to be used
+34. creating a shared folder and  added the download links of tools to be used
 
 35. created a bash script to validate needed versions 
 
