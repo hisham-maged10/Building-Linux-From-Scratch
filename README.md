@@ -135,8 +135,8 @@ _
    note: third number is bit color depth 12 means 4 bits for each color channel R,G,B and no alpha channel
    16 bit means 4 bits for each R,G,B,A channel
    32 bit means 8 bit for R,G,B,A channel each
- ```
-10. RESOLUTION WORKED IN GRUB
+    ```
+ 10. RESOLUTION WORKED IN GRUB
 
 11. Need to keep resolution at GRUB so final settings are
     ```
