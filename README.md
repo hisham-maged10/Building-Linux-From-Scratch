@@ -1,44 +1,44 @@
 ## [DAY 1]  (5/24/2020)
 
-1. installed virtual box using ubuntu univirsal repository
+1. installed virtual box using ubuntu universal repository
 
-2. found out that virtualbox doesn't work with kernel56
+2. found out that virtualbox doesn't work with **_kernel56_**
 
-3. found out there is a patch to make virtualization compatible with kernel56
+3. found out there is a patch to make virtualization compatible with _kernel56_
 
 4. Found out to apply patch I would have to compile virtual box from source with added patch [DISCARDED}
 
-5. Found out there's a new virtualbox version that supports kernel56 but not in ubuntu's universal repository yet
+5. Found out there's a new virtualbox version that supports _kernel56_ but not in ubuntu's universal repository yet
 
 6. Added virtualbox's repository to the system, updated current virtualbox 
 
 7. Virtualization now works, Tried Ubuntu 18.04 live CD
-
-8. Persisting on LIVE CD failed, Ubuntu is too slow, need something that is GUI-LESS with persistence ability
+_
+8. Persisting on LIVE CD failed, Ubuntu is too slow, need something that is **_GUI-LESS with persistence ability_**
 
 9. no ability to install guest additions on live-cd ubuntu
 
 10. Tried ubuntu setup, canceled midway
 
-11. Downloaded Arch linux
+11. Downloaded **_Arch linux_**
 
 12. created an image for arch, same settings 
 
 13. no ability to change resolution without configuring Arch [DISCARDED]
     
-    ###### OUTPUT: No Live-CD working, No idea how to set resolution without guest-additions
+##### OUTPUT: No Live-CD working, No idea how to set resolution without guest-additions
     
-    ###### ELAPSED: 9 hours
+##### ELAPSED: 9 hours
 
 ## [DAY 2] // 5/25/2020
 
 1. Researched on LIVE-CD distros
 
-2. Decided that I want a distro that is lightweight, debian based for APT support and universal repository
+2. Decided that I want a distro that is lightweight, **_debian based for APT support and universal repository_**
 
-3. Found Antix to be most suitable, NET version which has no software what so ever and no X-Server
+3. Found Antix to be most suitable, _NET_ version which has no software what so ever and no X-Server
 
-4. Downloaded, AntiX
+4. Downloaded, **_AntiX-net_**
 
 5. created image on virtual box
     settings:
@@ -60,9 +60,11 @@
 10. Tried Changing iso to vdi using VBOxManage cli-tool, worked but not resizable so can't persist
 
 11. Tried Arch linux once more, Followed a youtube video, GRUB installation failed [DISCARDED]
+    ```
     GRUB (referes to Grub2): is the easiest type of bootloader for linux
     bootloader: is a piece of software started by the firmware (BIOS or UEFI) and is responsible for loading the kernel with wanted kernel parameters based on its config file
     firmware: is a very basic software held in ROM that provide low-level interface with device's specific hardware
+    ```
 
 12. went back to AntiX, did a CLI-Install on VDI, partitioned 8 gb to 500 mb efi boot [EFI Type], 7.5 gb root [Linux filesystem Type]
 
@@ -106,9 +108,9 @@
 
 32. Downloaded MX Linux
     
-    ###### OUTPUT: Failed to persist on live-cd on virtual machine environment, Installed AntiX-net on VDI with no X-Server GUI just plain old TTY mode, Getty login but with invalid resolution
+##### OUTPUT: Failed to persist on live-cd on virtual machine environment, Installed AntiX-net on VDI with no X-Server GUI just plain old TTY mode, Getty login but with invalid resolution
     
-    ###### ELAPSED TIME: 8 hours
+##### ELAPSED TIME: 8 hours
 
 ## [DAY 3] // 5/26/2020
 
@@ -150,13 +152,14 @@
 14. Starting LFS Book
 
 15. Need to know what symbolic links are
-    Symbolic links are like advanced shortcuts, they point to another files or directories, Advanced because they're not treated as shortcuts, they're treated as pointers
+```
+   Symbolic links are like advanced shortcuts, they point to another files or directories, Advanced because they're not treated as shortcuts, they're treated as pointers
     so it treats the symbolic link as if it was really here but when accessed points to another place
     ** soft-link (Symbolic link) is just a file that has the path only and acts as a pointer to the actual directory or file so accessing it accesses the actual directory or file    but acts as if it was the real file 
     but deleting the original file, will also delete the symbolic link 
     ** hard-link (hard symbolic link) mirrors the file with all its contents not just the path and have the same inode so doing any change in one will affect the other
     and removing one won't remove the other but accessing any of them will be as if it accesses the other
-
+```
 16. recommended to use SWAP disk so will remove efi partition as not used and use that space for swap
 
 17. cfdisk, delete efi partition, use free space to create swap(LINUX SWAP), write,quit, mkswap on created partition
@@ -217,6 +220,6 @@
 
 36. copied shared files to home directory in vm for safe keeping
     
-    ###### ELAPSED: 4 hours
+##### ELAPSED: 4 hours
     
-    ###### OUTPUT: Now Linux vm is fully working with needed resolution and has automatic mounting, LFS system partitions created and mounted, sources collected, needs downloading and compilation only then building starts.
+##### OUTPUT: Now Linux vm is fully working with needed resolution and has automatic mounting, LFS system partitions created and mounted, sources collected, needs downloading and compilation only then building starts.
