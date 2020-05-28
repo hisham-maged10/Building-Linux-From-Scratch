@@ -1,4 +1,59 @@
-## [DAY 1] (5/24/2020)
+# [Preface] 
+---
+Let's first start with the basics and motivation behind building linux from scratch
+We all hear about what's called a Linux Distribution (destro) but what is it really?
+well, to understand that we have to know what Linux actually is,
+
+> ___Linux___
+> , This may come as a shock to most, but Linux is actually just the Kernel at the heart of your operating system.
+
+which brings us to the next definition,
+
+> ___Kernel___
+> is just a low-level software that resides in RAM
+> whose responsibility is to provide an interface between Software running and 
+> your hardware satisfying its requests, where the Kernel does The management of Memory, I/O, drivers and System calls
+
+After knowing that Linux is just a kernel, then what is a Linux operating System ?
+
+> ___Linux Operating System___
+> is an Operating System whose kernel is Linux, and is actually refered to as the GNU Linux Project, because all the software used in linux based systems is open-source
+> and is provided by the GNU community and both togther make up the linux operating system
+
+> ___Linux Distribution___
+> is a combination of selected open-source software, package management functionalities and Desktop Enviroment (Some distros do not provide Desktop Enviroments, They're 
+> Console based, like the one used in this repo)
+> that uses the linux kernel to interface with hardware of your device, so basically its a Linux Operating System, like Ubuntu
+
+> ___Desktop Enviroment___
+> is made up of multiple components such as Display Managers which is basically your Graphical Login Manager such as GDM3 or SDDM, Window Manager which is the software that 
+> manages how your windows pop up either being floating or tiled such as Mutter or i3, Compositors which are responsible for animations, like the animation of minimizing 
+> or maximizing a window, fading a window on close, transperancy such as Compton all of which are using Xorg server to handle the interaction between GUI components.
+
+> ___X Window System___
+> (X11 or simply X) uses the Xorg server which is an open-source implementation of a GUI Framework, that 
+> doesn't mandate how components are styled but gives them the functionality they need to operate such 
+> as how they're drawn and rendered on screen, Mouse interactions, Keyboard interactions, Drag and drop functionality and much more
+> and is called a server because it provides that service to GUI components which are in that case the clients
+
+Which brings us to the reason I'm building linux from scratch, all of these components can work independently without the other, Distros provide you with selected componentscombined together to give u an out of the box usage feel as a user, but as you go in deeper into linux, you face problems that you typically sure google on how to solve themand just copy paste the solution to your terminal and voilla, magic happened and everything now works as you need, so I decided that ___I want to understand more___ about how all of these components communicate with each other and how linux is operating so this journey is about understanding how an Operating System actually work and about exploring the different components of the system, you can say, ___I'm building a distro___ as a long term hobby.
+
+---
+## What I will be using
+---
+I will be using
++ Oracle's Virtual Box software to virtualize the whole process instead of bricking my actual computer
++ A lightweight X Server less distro for performance and further exploring of the system along the way
++ Some Free time
+
+---
+## Pre-requiste Knowledge
+---
+When using a virtual box, The system that the virtual box is installed on is called the ___Host System___ and the system that is being virtualized ( on the virtual box ) is called the ___Guest System___ and when virtualizing a system, you specify the settings of the virtual components that will run that system like RAM, Number of CPUs, Video memory,...etc, and that oracle provides what is called as virtualbox guest additions that modifies the resolution and other gui functionalities for your virtualized system.
+
+---
+
+## [DAY 1] (5/24/2020) [Nothing Works, duh]
 
 1. installed virtual box using ubuntu main repository
     ```
@@ -59,7 +114,7 @@ _
 
 ---
 
-## [DAY 2] (5/25/2020)
+## [DAY 2] (5/25/2020) [The journey of "NOTHING MAKES SENSE!"]
 
 ---
 
@@ -91,13 +146,17 @@ _
 10. Tried Changing iso to vdi using VBOxManage cli-tool, worked but not resizable so can't persist
 
 11. Tried Arch linux once more, Followed a youtube video, GRUB installation failed [DISCARDED]
-    ```
-    GRUB (referes to Grub2): is the easiest type of bootloader for linux
-    bootloader: is a piece of software started by the firmware (BIOS or UEFI) and is responsible for 
-    loading the kernel with wanted kernel parameters based on its config file
-    firmware: is a very basic software held in ROM that provide low-level interface with 
-    device's specific hardware
-    ```
+    
+> ___GRUB (referes to Grub2)____
+> is the easiest type of bootloader for linux
+
+> ____Bootloader____ 
+> is a piece of software started by the firmware (BIOS or UEFI) and is responsible for 
+> loading the kernel with wanted kernel parameters based on its config file
+
+> ___Firmware___
+> is a very basic software held in ROM that provide low-level interface with 
+> device's specific hardware
 
 12. went back to `AntiX`, did a `Cli-install` on VDI, partitioned 8 gb to 500 mb efi boot [EFI Type], 7.5 gb root [Linux filesystem Type]
 
@@ -171,7 +230,7 @@ _
 
 ---
 
-## [DAY 3] (5/26/2020)
+## [DAY 3] (5/26/2020) [Boss of Resolutions, The aha Moment]
 
 ---
 
@@ -317,7 +376,7 @@ separated by tabs or spaces or both
 ##### OUTPUT: Now Linux vm is fully working with needed resolution and has automatic mounting, LFS system partitions created and mounted, sources collected, needs downloading and compilation only then building starts.
 --- 
 
-## [DAY 4] (5/27/2020)
+## [DAY 4] (5/27/2020) [SSL/TLS ?? and What the Hell is a TLS Handshake]
 
 ---
 
