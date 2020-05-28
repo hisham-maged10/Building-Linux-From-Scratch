@@ -1,7 +1,7 @@
 # [Preface] 
 ---
 Let's first start with the basics and motivation behind building linux from scratch
-We all hear about what's called a Linux Distribution (destro) but what is it really?
+We all hear about what's called a Linux Distribution (distro) but what is it really?
 well, to understand that we have to know what Linux actually is,
 
 > ___Linux___
@@ -10,43 +10,70 @@ well, to understand that we have to know what Linux actually is,
 which brings us to the next definition,
 
 > ___Kernel___
-> is just a low-level software that resides in RAM
-> whose responsibility is to provide an interface between Software running and 
-> your hardware satisfying its requests, where the Kernel does The management of Memory, I/O, drivers and System calls
+> is just a low-level software that is loaded by the bootloader during the boot process in RAM 
+> whose responsibility is to provide an interface between Software running in user-space and 
+> your hardware, satisfying its requests, where the Kernel does The management of Memory, I/O requests, I/O devices, System Calls and I/O Access for drivers software 
+> to interact with with their corresponding physical devices and the kernel is also responsible to continue with the boot process once loaded in memory
 
 After knowing that Linux is just a kernel, then what is a Linux operating System ?
 
 > ___Linux Operating System___
-> is an Operating System whose kernel is Linux, and is actually refered to as the GNU Linux Project, because all the software used in linux based systems is open-source
-> and is provided by the GNU community and both togther make up the linux operating system
+> is an Operating System whose kernel is Linux, and is actually refered to as the GNU/Linux Project, because all the software used in linux based systems is open-source  
+> and is provided by the GNU project which is an open-source community and both togther make up the the GNU/Linux Operating System which is referred to as Linux
 
 > ___Linux Distribution___
 > is a combination of selected open-source software, package management functionalities and Desktop Enviroment (Some distros do not provide Desktop Enviroments, They're 
 > Console based, like the one used in this repo)
-> that uses the linux kernel to interface with hardware of your device, so basically its a Linux Operating System, like Ubuntu
+> that uses the linux kernel to interface with hardware of your device, so basically its a Linux Operating System, like Ubuntu but the important part to know is that 
+> Linux is ___just the kernel___ not the operating system, and a distribution just picks or develops open source software belonging to the GNU project and community 
+> to bring specific features for each category of use, So any software you run, even the Console TTY belongs to the GNU project, has nothing to do with the linux kernel, 
+> it just uses it.
 
-> ___Desktop Enviroment___
-> is made up of multiple components such as Display Managers which is basically your Graphical Login Manager such as GDM3 or SDDM, Window Manager which is the software that 
+> ___Desktop Environment___
+> bundles up of multiple graphical user interface components such as icons, toolbars, wallpapers, desktop widgets and utilities such as Window Managers and 
+> Display Managers phical Login Manager such as GDM3 or SDDM, Window Manager which is the software that 
 > manages how your windows pop up either being floating or tiled such as Mutter or i3, Compositors which are responsible for animations, like the animation of minimizing 
-> or maximizing a window, fading a window on close, transperancy such as Compton all of which are using Xorg server to handle the interaction between GUI components.
+> or maximizing a window, fading a window on close, transperancy such as Compton all of which need what is called as an X window server to function.
+> Examples of DE are GNOME which is used in `Ubuntu`, Pathogen which is used in `ElementaryOS`
 
-> ___X Window System___
-> (X11 or simply X) uses the Xorg server which is an open-source implementation of a GUI Framework, that 
-> doesn't mandate how components are styled but gives them the functionality they need to operate such 
-> as how they're drawn and rendered on screen, Mouse interactions, Keyboard interactions, Drag and drop functionality and much more
-> and is called a server because it provides that service to GUI components which are in that case the clients
+> ___Display Managers___
+> They are basically the graphical user interface of your login screen such as `GDM3` which is used by `GNOME`, `SDDM` which is used by KDE, without it, 
+> There's a default console based login window called `Getty` where you just access the 
+> console, you can actually use it by pressing cntrl + alt + F2 on loading menu of the distro
 
-Which brings us to the reason I'm building linux from scratch, all of these components can work independently without the other, Distros provide you with selected componentscombined together to give u an out of the box usage feel as a user, but as you go in deeper into linux, you face problems that you typically sure google on how to solve themand just copy paste the solution to your terminal and voilla, magic happened and everything now works as you need, so I decided that ___I want to understand more___ about how all of these components communicate with each other and how linux is operating so this journey is about understanding how an Operating System actually work and about exploring the different components of the system, you can say, ___I'm building a distro___ as a long term hobby.
+> ___Window Managers___
+> They are X-Clients that manage how the applications window frames look and how they're rendered on screen, how and where they pop on the screen, they determine
+> how the borders, title bars look and what their size are and some window managers are made spicifically for a desktop environment to fully interface with 
+> its icons, menus like `Kwin` window manager which is used by `Plasma` Desktop Environment used by `KDE` distro and some are more standalone window managers 
+> meant for more advanced users, they do not provide any toolbars, menus, compositors, ..etc where it gives the user the choice of 
+> which components to use for a more lightweight 
+> and use specialized systems such as `i3`, Also there are types of window managers basically defining how windows pop up and positioned, there're `Stacking`
+> window managers which is the more common one where windows are floating and can be tiled by draging them to a side of the screen, Some are `Tiling` windows 
+> which automatically tiles the windows for the user and is more advanced in terms of their configuration
+
+> ___Compositors___
+> They're the components that handle the animations of windows on the screen, such as fading effect, how windows are minimized, maximized, their opacity(in fact
+> without compositors, there is no opacity), their drop shadow and much more, an example of them is `Compton` which is wideley used.
+
+> ___X Window Server___
+> commonly refered to as X or X11 is a GUI Framework used by X-clients to provide rendering for graphical components, mouse and keyboard interactions with them 
+> and `Xorg` is the open-source implementation of it for linux communities and is a prerequisite for any graphical interface on linux
+> as it is the server of these services, and is called X because it does not mandate a specific user interface, desktop environment or window manager, 
+> it just provides the means for them to function. note that the OS can work perfectly without an X-Server, it just won't have any GUI and will be console based. 
+> infact some distros are made without providing an x-server for giving the users the ability to customize their system to that extent, also X-server can be configured 
+> using its config files in /usr/share/xorg or in /etc/xorg and a popular example of a config file for it is `.Xresources` or `.Xdefaults`
+
+Which brings us to the reason I'm building linux from scratch, all of these components can work independently without the other, Distros provide you with selected components combined together to give u an out of the box usage feel as a user, but as you go in deeper into linux and use it more, you face problems that you typically search google on how to solve them and just copy paste the solution to your terminal and voilla, magic happens and everything now works as you need, so I decided that ___I want to understand more___ about how all of these components communicate with each other and how linux is operating so this journey is about understanding how an Operating System actually work and about exploring the different components of the system, you can say, ___I'm building a distro___ as a long term hobby.
 
 ---
 ## What I will be using
 ---
-I will be using
-+ LFS (Linux From Scratch) Book (Should be refered to for the steps I will be following) [Read it here](http://www.linuxfromscratch.org/lfs/view/stable/)
-+ Oracle's Virtual Box software to virtualize the whole process instead of bricking my actual computer
-+ A lightweight X Server less distro for performance and further exploring of the system along the way
-+ Vim for markdown writing of this journal
-+ Some Free time
+- will be using
+- LFS (Linux From Scratch) Book (Should be refered to for the steps I will be following) [Read it here](http://www.linuxfromscratch.org/lfs/view/stable/)
+- Oracle's Virtual Box software to virtualize the whole process instead of bricking my actual computer
+- A lightweight X Server less distro for performance and further exploring of the system along the way
+- Vim for markdown writing of this journal
+- Some Free time
 
 ---
 ## Pre-requiste Knowledge
@@ -509,3 +536,7 @@ separated by tabs or spaces or both
 ##### ELAPSED: 7 hours
 
 ---
+## [DAY 5] (5/28/2020) 
+---
+
+- 
