@@ -322,7 +322,7 @@ separated by tabs or spaces or both
 ---
 
 1. Found out that `/tmp/` gets cleared and `@reboot` of `crontab` executed at boot before `xinit`, note: I still have no ___GUI___ just a ___console___ 
->___/tmp___
+> ___/tmp___
 > is a directory that gets automatically cleared at boot of system
 
 > ___Crontab___
@@ -335,7 +335,7 @@ separated by tabs or spaces or both
     ```
     ip addr show
     ```
-shortcut
+> shortcut
 > ip a
 
 3. Ethernet is the only interface connected automatically, you can know by seeing an IP under the interface name from prev. command
@@ -345,11 +345,15 @@ shortcut
     ```
     wget --input-file=wget-list --continue --directory-prefix=$LFS/sources/
     ```
+
 5. wget downloaded some files but not all due to errors
+
 6. found out that default of `wget` is `verbose` so to output errors only I need `-nv` flag and `--output-file=logfile` flag
+
     ```
     wget --input-file=wget-list --continue --directory-prefix=$LFS/sources/ -nv --output-file=wget.log
     ```
+
 7. Found out why wget didn't download all files 
     ```
     ...
@@ -359,6 +363,7 @@ shortcut
     ERROR: The certificate of 'www.sourceware.org' doesn't have a known issuer.
     ...
     ```
+
 8. Read more about SSL Certificates and CA and how SSL works
 
 > ___SSL___
@@ -427,12 +432,14 @@ shortcut
     ```
     sudo apt install ca-certificates
     ```
-    which will install them on under /etc/ssl directory
+> which will install them on under /etc/ssl directory
 
 11. `/etc` is the directory used to hold System's Configuration ( Default configuration most of the time )
+
 12. `/usr` is the directory used to hold System's user configuration
 
 > That's why config files existing in `/usr` Overrides config files in `/etc` in terms of which one is used by the System
+
 > config files are checked in `/usr` directory first then `/etc` if not found
 
 13. Now starting `wget`'s download again ___[WORKED]___
