@@ -42,8 +42,10 @@ Which brings us to the reason I'm building linux from scratch, all of these comp
 ## What I will be using
 ---
 I will be using
++ LFS (Linux From Scratch) Book (Should be refered to for the steps I will be following) [Read it here](http://www.linuxfromscratch.org/lfs/view/stable/)
 + Oracle's Virtual Box software to virtualize the whole process instead of bricking my actual computer
 + A lightweight X Server less distro for performance and further exploring of the system along the way
++ Vim for markdown writing of this journal
 + Some Free time
 
 ---
