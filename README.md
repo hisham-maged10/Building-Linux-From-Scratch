@@ -381,10 +381,37 @@ separated by tabs or spaces or both
 
     ```
     chmod -v a+wt $LFS/sources
-    a -> all users [default]
-    \+ add next
-    w -> write , r -> read, x -> execute, t-> sticky bit
     ```
+> Chmod means change mode which is changing the permissions of the file
+> - a -> all users [default]
+> - u > given to current user only
+> - g > given to group of current user
+> - \+ add next
+> - w -> write , r -> read, x -> execute, t-> sticky bit
+> - -R > means recursive, given to all files in whole directory
+> There's a way to change mode without letters and it is by knowing bitmasks used for permissions, for an owner
+> 1. read permissions is 0400
+> 2. write permission is 0200
+> 3. execute permission is 0100 
+> And a bitwise or is done on them to know what to do, so in binary 111 is ORing of 100 and 010 and 001 which are 4,2,1 and output is 7 meaning rwx 
+> but according to the previous position it is 0700 
+> and that position is meant to be permissions of the owner 
+> first bit from left is sticky bit (t) which is 1000
+> third bit from left is group permissions 
+> 1. read permissions is 0040
+> 2. write permission is 0020
+> 3. execute permission is 0010 
+> And fourth bit from left is the same but for all users
+> and if you used long listing of ls before, you're familliar with rwxrwxrwx 
+> so 777 which is the same as 0777 means for first,second,third group of rwx I want 7 (4 | 2 | 1) (rwx)
+> and 667 means for first and second groups of rwx I want (4|2) rw- and for third group I want 7 which is rwx
+> sticky bit is 1000
+> so for example trwx is 1700 
+> and t-wx is 1300 because 1000 is for sticky bit, and wx is 010 | 001 which is 011 which is 3 
+> so you basically give a number that represents a bitmask for each group of rwx representing 3 bits --- for e.g. 101 mean r-x which is 5 for a rwx group position 
+> so `chmod 777 <file_name>` is give rwxrwxrwx which is give 111 111 111 for that file
+> and `chmod 667 <file_name>` mean 110 110 111 which is rw-rw-rwx by substituting the bitmask by their positions for each group
+> and `chmod 235 <file_name>` is 010 011 101 which is -w- -wx r-x
 
 27. downloaded wget, `apt install wget`
 
@@ -539,4 +566,88 @@ separated by tabs or spaces or both
 ## [DAY 5] (5/28/2020) 
 ---
 
-- 
+1. Confirming that I have all needed source files (81 files) (you can view them along with wget-list file in the repository)
+
+    ```
+    > ls -l | wc -l
+    > 81
+    ```
+
+2. found out that `HTTP` is at `port 80`, `HTTPS` is at `port 443` and it is reserved by the System and called `System ports`
+
+3. Created $LFS/tools directory which will hold the compiled software 
+
+    ```
+    mkdir -v $LFS/tools
+    ```
+
+4. Did a symbolic link of `$LFS/tools` on `root` directory for chapter 6
+
+    ```
+    ln -sv $LFS/tools /
+    ```
+
+5. read about groups and users and Created an unprivilleged group and added a new user to it for the compilation phase, as till now I'm using the root user and compiling as root is dangerous as it could break the system.
+
+> ___Groups___
+> groups are a way in linux to organize users, to view groups, they're stored in `/etc/group`
+    ```
+    groupadd LFS
+    ```
+> ___Users___
+> Users in linux are given specific permissions on which files they can read, write or execute and own, to view users, they're stored in `/etc/passwd`
+> 1. New users must get a password before being able to login to the system
+> 2. New users must specify if they want a home directory or not using the `-m flag`, default is none
+> 3. New users must specify which shell to use by specifying its path using the `-s option`
+> 4. New users must specify which files are to be copied to their home directory (only valid if -m flag is used), default is specified in `/etc/skel` using `-k option`
+> 5. Users can have what is called as a base-dir which is the directory that they log in to, default is home directory using `-b option`
+> 6. password of users is encrypted and is put int `/etc/shadow`
+
+    ```
+    useradd -s /bin/bash -g LFS -m -k /dev/null lfs
+    passwd lfs
+    ```
+> ___/dev/null___
+> a file used in linux to discard output, it contains nothing and is most of the time used to discard output by redirecting output to it
+
+6. Found out the bits meaning in long listing format of ls command 
+    ```
+    bits_representing_info <no_of_files_in_directory> <owner> <group> <size_in_bytes> <last_modified_date> <name>
+
+    <bits_representing_info> is for example drwxrwxrwx
+    first bit represents if it is a directory(d) or file(-) or symbolic link (l)
+    next 3 bits represents permissions of owner 
+    next 3 represents permission of group
+    next 3 represent permission of all users
+    drwxr-xr-x.  4 root root    4096 Jul 11 21:26 Desktop
+    means its a directory that has rwx permissions for owner, read, execute for group, read and execute for other users
+    , has 4 files inside it, owned by root and is 4096 bytes of size
+    first 3 bits after is permissions for owner of file 
+    next 3 bits are permissions of users in same group as owner 
+    next 3 bits are permissions of users outside of that group (all other users)
+    owning user name 
+    group in which owner is in
+    r > read for files / able to list directory
+    w > edit or delete files / able to delete or add content to a directory
+    x > able to execute file / able to change directory into that directory
+    owner has access to rwx 
+    ```
+
+7. Read about ownership and `chown` and changed ownership of $LFS/tools and $LFS/sources to newly created user to get full access to them without having to be root
+    ```
+    chown -v lfs $LFS/tools
+    chown -v lfs $LFS/sources
+    ```
+> ___chown___
+> Changes ownership of the file or directory to given user, note that, an owner of a file has full access to do what he wants with the file 
+> Also to be able to use chmod on a file, you have to be the owner of that file and by default the owner of the file or directory is the one created it
+
+8. Logged in to the System with the new user using a virtual console instead of logging out and in or restarting 
+    ```
+    su - lfs
+    ```
+> which means start a login shell for given user
+
+##### OUTPUT: Made sure that all sources and tools exist in virtual machine, got to know about permissions, ownership, users and groups
+##### ELAPSED: 2 hours
+---
