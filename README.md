@@ -30,7 +30,8 @@ After knowing that Linux is just a kernel, then what is a Linux operating System
 > it just uses it.
 
 > ___Operating System___
-> is the whole package that manages our computer's resources and lets us interact with it, an operating system is made up of a bootloader, kernel, 
+> is the whole package that manages our computer's resources and lets us interact with it, an operating system is made up of a bootloader(low level software 
+> that your basic firmware loaded in ROM starts, and its responsibility is to load the kernel into memory to continue the boot process), kernel, 
 > Device Drivers (software that interfaces and manages your physical hardware through kernel such as your GPU driver), 
 > Networking interfaces (which automatically configures how networking works), User interface (Your Console based interface or graphical based interface)
 > and a user space (which is any software running on your computer)
