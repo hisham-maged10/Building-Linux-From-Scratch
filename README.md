@@ -12,7 +12,7 @@ which brings us to the next definition,
 > ___Kernel___
 > is just a low-level software that is loaded by the bootloader during the boot process in RAM 
 > whose responsibility is to provide an interface between Software running in user-space and 
-> your hardware, satisfying its requests, where the Kernel does The management of Memory, I/O requests, I/O devices, System Calls and I/O Access for drivers software 
+> your hardware, satisfying its requests, where the Kernel does The management of Processes, Memory, I/O requests, I/O devices, System Calls and I/O Access for drivers software 
 > to interact with with their corresponding physical devices and the kernel is also responsible to continue with the boot process once loaded in memory
 
 After knowing that Linux is just a kernel, then what is a Linux operating System ?
@@ -29,12 +29,16 @@ After knowing that Linux is just a kernel, then what is a Linux operating System
 > to bring specific features for each category of use, So any software you run, even the Console TTY belongs to the GNU project, has nothing to do with the linux kernel, 
 > it just uses it.
 
+> ___Operating System___
+> is the whole package that manages our computer's resources and lets us interact with it, an operating system is made up of a bootloader, kernel, 
+> Device Drivers (software that interfaces and manages your physical hardware through kernel such as your GPU driver), 
+> Networking interfaces (which automatically configures how networking works), User interface (Your Console based interface or graphical based interface)
+> and a user space (which is any software running on your computer)
+
 > ___Desktop Environment___
-> bundles up of multiple graphical user interface components such as icons, toolbars, wallpapers, desktop widgets and utilities such as Window Managers and 
-> Display Managers phical Login Manager such as GDM3 or SDDM, Window Manager which is the software that 
-> manages how your windows pop up either being floating or tiled such as Mutter or i3, Compositors which are responsible for animations, like the animation of minimizing 
-> or maximizing a window, fading a window on close, transperancy such as Compton all of which need what is called as an X window server to function.
-> Examples of DE are GNOME which is used in `Ubuntu`, Pathogen which is used in `ElementaryOS`
+> bundles up multiple graphical user interface components such as icons, toolbars, wallpapers, desktop widgets and utilities such as Window Managers and 
+> Display Managers, Window Manager, a Compositor all of which need what is called as an X window server to function.
+> Examples of DE are `GNOME` which is used in `Ubuntu`, `Pathogen` which is used in `ElementaryOS`
 
 > ___Display Managers___
 > They are basically the graphical user interface of your login screen such as `GDM3` which is used by `GNOME`, `SDDM` which is used by KDE, without it, 
