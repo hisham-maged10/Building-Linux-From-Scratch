@@ -337,7 +337,7 @@ or can be
 > but acts as if it was the real file 
 > but deleting the original file, will also delete the symbolic link 
 
-___Hard-link___
+> ___Hard-link___
 > mirrors the file with all its contents not just the
 > path and have the same inode so doing any change in one will affect the other
 > and removing one won't remove the other but accessing any of them will 
@@ -346,16 +346,31 @@ ___Hard-link___
 16. recommended to use SWAP disk so will remove efi partition as not used and use that space for swap
 
 17. `cfdisk`, delete efi partition, use free space to create swap(LINUX SWAP), write,quit, mkswap on created partition
+    ```
+    cfdisk
+    ```
 
 18. created new VDI for LFS System other than AntiX drive, Created root of 10GB, 500mb boot, 1.5GB SWAP
 
-19. root, boot partitions must be initialized to be ext4 type > mkfs -v -t ext4 /dev/sdbx
+19. root, boot partitions must be initialized to be ext4 type 
+    ```
+    mkfs -v -t ext4 /dev/sdbx
+    ```
 
-20. swap must be initialized as swap > `mkswap /dev/sdbx`
+20. swap must be initialized as swap 
+    ```
+    mkswap /deb/sdbx
+    ```
 
-21. export $LFS variable, adding it to .bashrc > `export LFS=/mnt/lfs`
+21. export $LFS variable, adding it to `.bashrc` 
+    ```
+    export LFS=/mnt/lfs
+    ```
 
-22. reload bashrc without reboot > `source ~/.bashrc`
+22. reload bashrc without reboot 
+    ```
+    source ~/.bashrc
+    ```
 
 23. create needed directories for mounting 
 
@@ -382,6 +397,7 @@ separated by tabs or spaces or both
     ```
     chmod -v a+wt $LFS/sources
     ```
+
 > Chmod means change mode which is changing the permissions of the file
 > - a -> all users [default]
 > - u > given to current user only
@@ -413,13 +429,23 @@ separated by tabs or spaces or both
 > and `chmod 667 <file_name>` mean 110 110 111 which is rw-rw-rwx by substituting the bitmask by their positions for each group
 > and `chmod 235 <file_name>` is 010 011 101 which is -w- -wx r-x
 
-27. downloaded wget, `apt install wget`
+27. downloaded wget
+
+    ```
+    apt install wget
+    ```
 
 28. use wget to download all urls from input-file and continue on fail and save in a directory not the CWD
-    ` wget --input-file=wget-list --continue --directory-prefix=$LFS/sources`
+
+    ```
+    wget --input-file=wget-list --continue --directory-prefix=$LFS/sources
+    ```
 
 29. create wget-list file
-    ` vim wget-list ( no copy paste between host and guest cuz console )`
+
+    ```
+    vim wget-list ( no copy paste between host and guest cuz console )
+    ```
 
 30. creating a shared folder and  added the download links of tools to be used
 
@@ -607,6 +633,7 @@ separated by tabs or spaces or both
     useradd -s /bin/bash -g LFS -m -k /dev/null lfs
     passwd lfs
     ```
+
 > ___/dev/null___
 > a file used in linux to discard output, it contains nothing and is most of the time used to discard output by redirecting output to it
 
