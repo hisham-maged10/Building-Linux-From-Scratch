@@ -683,3 +683,94 @@ separated by tabs or spaces or both
 ##### OUTPUT: Made sure that all sources and tools exist in virtual machine, got to know about permissions, ownership, users and groups
 ##### ELAPSED: 2 hours
 ---
+## [DAY 6] (5/30/2020)
+---
+
+1. Logging in as `Root` to continue with the sequence of the book by logging in using `su -` as LFS
+
+2. Logging as su - lfs to start a login shell 
+    ```
+    su - lfs
+    ```
+> ___su___
+> Substitute user, runs a program as the specified user, 
+> using it without arguments runs an interactive non login shell as root 
+> giving the `-` flag makes it run a login shell, and if no user is provided, it starts it for the root user, 
+
+> ___Login Shell___
+> is an interactive shell that reads the contents of `/etc/profile` and `~/.bash_profile` and sometimes `~/.profile` to set some environment variables for use 
+> , executes scripts in `/etc/profile.d` and then reads `~/.bashrc` and examples of them is `X login shell` and login shell of `su -`
+
+> ___Environment Variables___
+> are dynamic-valued variables that can affect the way running processes will behave on a computer, they are part of the environment in which a process is run such as `$PATH` 
+> and they are normal values that are defined in a shell script and is made `Environment Variable` by using the command `export` and is then read by prepending `$` to its name
+
+```
+LFS = /mnt/lfs
+export LFS
+```
+> now `$LFS` has the value `/mnt/lfs`
+
+> ___Non Login Shell___
+> is an interactive shell that only reads `.bashrc` and executes the scripts in `/etc/profile.d/` but does not read the contents of `/etc/profile` or 
+> `~/.bash_profile`, so it is recommended that the Environment variables that should be available for basic use to be set in `/etc/profile` or 
+> `~/.bash_profile` and the environment variables that can be changed or should be changed to be set in `~/.bashrc` 
+> and examples of non login shells are any graphical terminals or any shell that is executed by `su` without the `-` flag
+> also note that `~` is expanded to the contents of `$HOME` environment variable of the user, so using a shell as another user using `su` should be done 
+> using the `-` flag so the `$HOME` variable is set to the correct `$HOME` path
+
+> ___Login Services___
+> like `su -` or `login` set the `$HOME` and `$SHELL` variables by the values in `/etc/passwd` which was provided during the user creation process using 
+> `useradd ...` but in case of `su -` it sets them in the shell you're working on only not outside of it
+
+> ___Interactive Shell___
+> is the normal shell that you usually use and it is interactive meaning you can issue commands while it is running 
+```
+$ bash
+```
+
+> ___Non-Interactive Shell___
+> is a shell that is running a script, you can't interact with it, it is interpretting the shell script only
+```
+$ bash bla.sh
+```
+> ___env___
+> is a command that can run a specific program using overwritten environment variables to affect the behaviour of the program
+```
+env HOME=/mnt bash
+```
+> will run a bash shell whose `$HOME` variable is `/mnt` 
+
+3. Since now we logged in using a `login shell`, we used the environment variables that are in `/etc/profile` so some of them may pollute some of the compilation of our sources
+
+4. Creating an isolated Environment for our LFS shell by creating a `.bash_profile` which will be read after `/etc/profile` and take the needed variables to a newly created isolated shell and I will do that in the `.bash_profile`, also by using the `exec` command, it will not be a child of the running process but will replace it
+
+> ___exec___
+> is a command that takes another command as an argument and spawns a new process running this command but not as a child, it replaces the current process
+
+    ```
+    vim ~/.bash_profile
+    exec env -i HOME=$HOME TERM=$TERM PS1='\u:\w\$ ' /bin/bash
+    ```
+> `-i` flag isolates (removes all environment variables currently set) and then gave some environment variables from our existing environment which are $TERM, $HOME, $PS1
+
+5. created my `.bashrc` file 
+    ```
+    vim ~/.bashrc
+    set +h
+    umask 022
+    LFS=/mnt/lfs
+    LC_ALL=POSIX
+    LFS_TGT=$(uname -m)-lfs-linux-gnu
+    PATH=/tools/bin:/bin:/usr/bin
+    export LFS LC_ALL LFS_TGT PATH
+    ```
+> ___set +h___
+> Bash by default uses a Hashmap to store name of programs with their path instead of always searching for a program in `$PATH` directories and since we're compiling 
+> new programs, we want it to always find it so this disables the hashing and also we set the `/tools/bin/` as the first path to look at so it always uses the 
+> programs we're compiling not programs installed on distro
+
+6. sourcing the `.bash_profile` file instead of restarting 
+    ```
+    source ~/.bash_profile
+    ```
