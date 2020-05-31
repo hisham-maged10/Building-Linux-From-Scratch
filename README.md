@@ -696,6 +696,8 @@ separated by tabs or spaces or both
 > Substitute user, runs a program as the specified user, 
 > using it without arguments runs an interactive non login shell as root 
 > giving the `-` flag makes it run a login shell, and if no user is provided, it starts it for the root user, 
+> entering a virtual console as if you were logged in as the specified user but the invoking user of su is still in background 
+> so exiting the virtual console will return u to the console of the invoker
 
 > ___Login Shell___
 > is an interactive shell that reads the contents of `/etc/profile` and `~/.bash_profile` and sometimes `~/.profile` to set some environment variables for use 
