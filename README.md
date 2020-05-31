@@ -594,7 +594,7 @@ separated by tabs or spaces or both
 ##### ELAPSED: 7 hours
 
 ---
-## [DAY 5] (5/28/2020) 
+## [DAY 5] (5/28/2020) [Ain't no permissions stopping me]
 ---
 
 1. Confirming that I have all needed source files (81 files) (you can view them along with wget-list file in the repository)
@@ -683,7 +683,7 @@ separated by tabs or spaces or both
 ##### OUTPUT: Made sure that all sources and tools exist in virtual machine, got to know about permissions, ownership, users and groups
 ##### ELAPSED: 2 hours
 ---
-## [DAY 6] (5/30/2020)
+## [DAY 6] (5/30/2020) [Shells are more interesting than they seem]
 ---
 
 1. Logging in as `Root` to continue with the sequence of the book by logging in using `su -` as LFS
@@ -770,7 +770,17 @@ env HOME=/mnt bash
 > new programs, we want it to always find it so this disables the hashing and also we set the `/tools/bin/` as the first path to look at so it always uses the 
 > programs we're compiling not programs installed on distro
 
+> ___umask___
+> Each directory or file created using the shell gets default permissions, umask specifies the default permissions using a 3 bit bitmask, each bit specifying one 
+> rwx group but it uses the complement of the number given for the bit so `umask 022` means 0 for owner and complement of 0 is 1 which is `111` so `rwx` 
+> meaning owner gets all permissions, `2` for group and all users, `!2` is `! 010` which is `101` which means all others get `r-x` permissions 
+
+> ___$PATH___
+> variable specifies the locations to look for the binaries of the requested program on the shell
+
 6. sourcing the `.bash_profile` file instead of restarting 
     ```
     source ~/.bash_profile
     ```
+##### OUTPUT: Setup the compilation environment and learnt about Environment variables and types of shells
+##### ELAPSED: 4 hours
